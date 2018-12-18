@@ -1,6 +1,8 @@
 $(document).ready(function(e) {
 
-	// My Cart menu dropdown.
+	/************************************
+	 *  My Cart menu dropdown.
+	 ************************************/
 	var dropdown_hovered = false;
 	$('#my-cart').hover(
 		function() {
@@ -30,14 +32,15 @@ $(document).ready(function(e) {
 	    dropdown_hovered = true;
 	});
 
-
-	// Add to cart button functionality.
+	/************************************
+	 * Add to cart button functionality.
+	 ************************************/
 	$('.add-to-cart').click(function(e) {
 		e.preventDefault();
-		var has_selected = $('.sizes a.selected').length;
-		if (has_selected) {
 
-			// Update cart.
+		// Check if there's selected size. Show error message if none.
+		if ($('.sizes a.selected').length) {
+
 			var image_src = $('.product-details .prod-images > a > img').prop('src');
 			var title = $('.product-details h2').text();
 			var price = $('.product-details .price').text();
@@ -45,13 +48,18 @@ $(document).ready(function(e) {
 
 			// Add quantity if item exists in cart. Otherwise, append the item.
 			if ($('.cart-content li.size-' + size).length) {
+
+				// Update the item price and quantity.
 				var qty = $('.cart-content li.size-' + size + ' .qty').text();
 				qty =  parseFloat(qty) + 1;
 				price = price.replace('$', '');
 				price = parseFloat(price) * qty;
 				$('.cart-content li.size-' + size + ' .qty').text(qty);
 				$('.cart-content li.size-' + size + ' .price').text('$' + price.toFixed(2).toLocaleString());
+
 			} else {
+
+				// Add item tocart.
 				var item = '<li class="size-' + size + '">' +
 						'<div class="row">' +
 							'<div class="col-4">' +
@@ -72,11 +80,15 @@ $(document).ready(function(e) {
 			// Update cart items count.
 			$('.cart-total').text($('.cart-content li').length);
 		} else {
+
+			// No size selected.
 			$('.error-message').html('Please select size.');
 		}
 	});
 
-	// Select size.
+	/************************************
+	 * Select size.
+	 ************************************/
 	$('.sizes a').click(function(e) {
 		if (!$(this).hasClass('selected')) {
 			$('.sizes a').removeClass('selected');
