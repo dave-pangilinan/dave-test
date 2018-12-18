@@ -91,6 +91,7 @@ $(document).ready(function(e) {
 	 ************************************/
 	$('.sizes a').click(function(e) {
 		if (!$(this).hasClass('selected')) {
+			e.preventDefault();
 			$('.sizes a').removeClass('selected');
 			$(this).attr('class', 'selected');
 			var size = $(this).data('size');
